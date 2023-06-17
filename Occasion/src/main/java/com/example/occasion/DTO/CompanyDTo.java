@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class CompanyDTo {
-    private Integer company_Id;
 
     private String username;
     private String password;

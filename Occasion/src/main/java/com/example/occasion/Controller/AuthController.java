@@ -20,18 +20,6 @@ public class AuthController {
         return ResponseEntity.status(200).body(myUserList);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity register(@RequestBody MyUser myUser){
-        authService.register(myUser);
-
-        return ResponseEntity.status(200).body("customer register");
-    }
-//    @PostMapping("/register")
-//    public ResponseEntity registercompany(@RequestBody MyUser myUser){
-//        authService.registercompany(myUser);
-//
-//        return ResponseEntity.status(200).body("company register");
-//    }
 
     @PostMapping("/customer")
     public ResponseEntity customer(){

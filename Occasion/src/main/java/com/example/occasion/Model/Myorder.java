@@ -31,17 +31,19 @@ public class Myorder {
     @Column(columnDefinition = "varchar(20) not null" )
     private String time;
 
-    @NotNull(message = "total price not null")
-    @Column(columnDefinition = "int not null")
+
     private Integer totalPrice;
 
     private String stutas;
 
-    private LocalDateTime createAt;
+    @Column(columnDefinition = "varchar(20) not null check(category='daily' or category='weekly' or category='monthly'" )
+    private String category;
+
+    private Integer numbarofrepeat;
 
 
 
-
+//    private LocalDateTime createAt;
 
 
     @ManyToOne

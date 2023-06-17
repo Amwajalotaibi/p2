@@ -12,8 +12,8 @@ public interface CompanyRepository extends JpaRepository<Company,Integer> {
 
     List<Company> findAllByMyUser(MyUser myUser);
     Company findCompanyById(Integer id);
-    Company findCompanyByCity(String city);
-    Company findCompanyByTimecatgory(String timecatgory);
+    List<Company> findCompanyByCity(String city);
+    List<Company> findCompanyByTimecatgory(String timecatgory);
     Company findCompanyByRating(String rating);
 
 

@@ -21,28 +21,31 @@ import java.util.List;
 public class ServicetypeService {
     private final ServicetypeRepository servicetypeRepository;
     private final MyServiceRepository myServiceRepository;
+    private final CompanyRepository companyRepository;
 
     public List<Servicetype>getAll() {
 
         return servicetypeRepository.findAll();
     }
 
-    public void addservicetype(ServicetypeDto dto) {
-        MyService myService = myServiceRepository.findMyServiceById(dto.getServicetype_id());
+    public void addservicetype(ServicetypeDto dto,MyUser myUser) {
+        MyService myService = myServiceRepository.findMyServiceById(dto.getMyservice_id());
+        Company company=companyRepository.findCompanyById(myUser.getId());
         if (myService == null) {
             throw new ApiException("sorry can't add");
         }
-        Servicetype servicetype = new Servicetype(null, dto.getName(), dto.getDetails(), dto.getPrice(), null);
+        Servicetype servicetype = new Servicetype(null, dto.getName(), dto.getDetails(), dto.getPrice(),myService);
+        myService.getCompanySet().add(company);
         servicetypeRepository.save(servicetype);
     }
 
     public void updateServicetype(ServicetypeDto dTo) {
-        MyService myService = myServiceRepository.findMyServiceById(dTo.getServicetype_id());
+        MyService myService = myServiceRepository.findMyServiceById(dTo.getMyservice_id());
         if (myService == null) {
             throw new ApiException("MyUser not found");
         }
 
-        Servicetype servicetype = servicetypeRepository.findServicetypeById(dTo.getServicetype_id());
+        Servicetype servicetype = servicetypeRepository.findServicetypeById(dTo.getMyservice_id());
         servicetype.setName(dTo.getName());
         servicetype.setDetails(dTo.getDetails());
         servicetype.setPrice(dTo.getPrice());

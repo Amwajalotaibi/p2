@@ -13,4 +13,7 @@ public interface MyorderRepository extends JpaRepository<Myorder,Integer> {
     Myorder findMyorderById(Integer id);
     List<Myorder> findMyorderByDay(Integer day);
 
+    List<Myorder> findMyorderByStutas(String stutas);
+
+
 }

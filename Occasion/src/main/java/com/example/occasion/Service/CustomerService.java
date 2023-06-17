@@ -30,27 +30,28 @@ public class CustomerService {
 
     public void addCustomer(CustomerDTO dto) {
         MyUser myUser=new MyUser(null, dto.getUsername(), dto.getPassword(),"customer",null,null);
-//        String hash=new BCryptPasswordEncoder().encode(myUser.getPassword());
-//        myUser.setPassword(hash);
+        String hash=new BCryptPasswordEncoder().encode(myUser.getPassword());
+        myUser.setPassword(hash);
         authRepository.save(myUser);
 
 
-        Customer customer = new Customer(null, dto.getEmail(), dto.getPhoneNumber(), false, 0,null,null);
+        Customer customer = new Customer(null, dto.getEmail(), dto.getPhoneNumber(), false, 0,myUser,null);
+        myUser.setCustomer(customer);
         customerRepository.save(customer);
     }
 
 
-//    public void updateCustomer(CustomerDTO dto) {
-//        MyUser myUser = authRepository.findMyUserById(dto.);
-//        if (myUser == null) {
-//            throw new ApiException("MyUser not found");
-//        }
-//
-//        Customer customer = customerRepository.getCustomerById(dto.getCustomer_id());
-//        customer.setEmail(dto.getEmail());
-//        customer.setPhoneNumber(dto.getPhoneNumber());
-//        customerRepository.save(customer);
-//    }
+    public void updateCustomer(CustomerDTO dto, MyUser myUser) {
+        MyUser myUser1 = authRepository.findMyUserById(myUser.getId());
+        if (myUser1 == null) {
+            throw new ApiException("MyUser not found");
+        }
+
+        Customer customer = customerRepository.getCustomerById(myUser.getId());
+        customer.setEmail(dto.getEmail());
+        customer.setPhoneNumber(dto.getPhoneNumber());
+        customerRepository.save(customer);
+    }
 
     public void deleteCustomer(Integer id) {
         Customer c = customerRepository.getCustomerById(id);

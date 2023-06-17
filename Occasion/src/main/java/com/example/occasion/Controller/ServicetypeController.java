@@ -1,10 +1,12 @@
 package com.example.occasion.Controller;
 
 import com.example.occasion.DTO.ServicetypeDto;
+import com.example.occasion.Model.MyUser;
 import com.example.occasion.Service.ServicetypeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +23,8 @@ public class ServicetypeController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity addCustomerDto(@Valid @RequestBody ServicetypeDto servicetypeDto){
-        servicetypeService.addservicetype(servicetypeDto);
+    public ResponseEntity addCustomerDto(@Valid @RequestBody ServicetypeDto servicetypeDto, @AuthenticationPrincipal MyUser myUser){
+        servicetypeService.addservicetype(servicetypeDto,myUser);
         return ResponseEntity.status(200).body("Company added");
     }
 

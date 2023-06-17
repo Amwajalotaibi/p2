@@ -30,11 +30,11 @@ public class CustomerController {
         return ResponseEntity.status(200).body("Company added");
     }
 
-//    @PutMapping("/update/{id}")
-//    public ResponseEntity updateCustomerDTO(@AuthenticationPrincipal MyUser myUser,@Valid @RequestBody CustomerDTO customerDTO){
-//        customerService.updateCustomer(customerDTO);
-//        return ResponseEntity.status(200).body("Customer Updated");
-//    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity updateCustomerDTO(@AuthenticationPrincipal MyUser myUser,@Valid @RequestBody CustomerDTO customerDTO){
+        customerService.updateCustomer(customerDTO,myUser);
+        return ResponseEntity.status(200).body("Customer Updated");
+    }
 
    @DeleteMapping("/delete/{id}")
     public ResponseEntity deleteCustomer(@AuthenticationPrincipal MyUser myUser,@PathVariable Integer id){
